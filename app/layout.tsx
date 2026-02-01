@@ -10,11 +10,14 @@ import {
 export const metadata: Metadata = {
   title: {
     default: "Maxtest - AI-Driven Testing Platform",
-    template: "%s | Maxtest",
+    template: "%s | Maxtest AI",
   },
   description:
     "Maxtest autonomously generates, maintains, and repairs your end-to-end test suite with AI-powered RAG intelligence. Ship code faster with zero flake.",
   keywords: [
+    "Maxtest AI",
+    "TestOps",
+    "Autonomous Testing",
     "AI testing",
     "test automation",
     "Playwright",
