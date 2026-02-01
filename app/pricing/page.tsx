@@ -1,15 +1,20 @@
 "use client";
 
 import { useState } from "react";
-import { generateMetadata as generateSEOMetadata } from "@/lib/seo";
+import { generateFAQSchema } from "@/lib/seo";
 import AnimatedSection from "@/components/AnimatedSection";
 import { cn } from "@/lib/utils";
 
 export default function PricingPage() {
   const [isYearly, setIsYearly] = useState(false);
+  const faqSchema = generateFAQSchema(faqs);
 
   return (
     <div className="flex flex-col min-h-screen bg-background-dark">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
       <section className="flex-grow flex flex-col relative py-20">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-primary/5 rounded-full blur-[120px]" />
@@ -127,7 +132,7 @@ export default function PricingPage() {
                         strokeWidth={2}
                       />
                     </svg>
-                    <span>1000 tokens / month</span>
+                    <span>10000 tokens / month</span>
                   </li>
                   <li className="flex items-start gap-3 text-sm text-slate-300">
                     <svg
@@ -163,7 +168,7 @@ export default function PricingPage() {
                   </li>
                 </ul>
                 <a
-                  href={process.env.NEXT_PUBLIC_APP_URL || "#"}
+                  href={`${process.env.NEXT_PUBLIC_APP_URL}/auth?action=signup` || "#"}
                   className="w-full py-3 px-4 rounded-xl border border-primary/50 bg-primary/5 text-primary font-bold hover:bg-primary/10 hover:border-primary transition-colors flex items-center justify-center gap-2"
                 >
                   Start Free
@@ -254,7 +259,7 @@ export default function PricingPage() {
                     </li>
                   </ul>
                   <a
-                    href={process.env.NEXT_PUBLIC_APP_URL || "#"}
+                    href={`${process.env.NEXT_PUBLIC_APP_URL}/auth?action=signup` || "#"}
                     className="w-full py-4 px-4 rounded-xl bg-primary text-background-dark font-extrabold text-lg hover:bg-cyan-300 transition-colors shadow-[0_0_10px_rgba(0,191,255,0.5),0_0_20px_rgba(0,191,255,0.3)] flex items-center justify-center"
                   >
                     Sign Up

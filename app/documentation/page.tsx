@@ -1,4 +1,7 @@
-import { generateMetadata as generateSEOMetadata } from "@/lib/seo";
+import {
+  generateMetadata as generateSEOMetadata,
+  generateBreadcrumbSchema,
+} from "@/lib/seo";
 import AnimatedSection from "@/components/AnimatedSection";
 import CTAButton from "@/components/CTAButton";
 
@@ -10,8 +13,17 @@ export const metadata = generateSEOMetadata({
 });
 
 export default function DocumentationPage() {
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "Documentation", url: "/documentation" },
+  ]);
+
   return (
     <div className="flex flex-col min-h-screen bg-background-dark">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <section className="relative py-20 px-4 sm:px-6">
         <div className="max-w-7xl mx-auto">
           {/* Hero */}

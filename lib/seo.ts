@@ -16,7 +16,7 @@ export function generateMetadata({
   title,
   description,
   path = "",
-  image = "/og-image.png",
+  image = "/favicon-img-w.png",
 }: SEOProps): Metadata {
   const url = `${baseUrl}${path}`;
   const fullTitle = `${title} | Maxtest`;
@@ -119,3 +119,42 @@ export function generateSoftwareApplicationSchema() {
     },
   };
 }
+
+/**
+ * Generate structured data (JSON-LD) for FAQ page
+ */
+export function generateFAQSchema(
+  questions: { question: string; answer: string }[]
+) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: questions.map((q) => ({
+      "@type": "Question",
+      name: q.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: q.answer,
+      },
+    })),
+  };
+}
+
+/**
+ * Generate structured data (JSON-LD) for Breadcrumbs
+ */
+export function generateBreadcrumbSchema(
+  items: { name: string; url: string }[]
+) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      item: item.url.startsWith("http") ? item.url : `${baseUrl}${item.url}`,
+    })),
+  };
+}
+

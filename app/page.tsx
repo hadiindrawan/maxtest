@@ -196,7 +196,7 @@ export default function Home() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <CTAButton
-                href={process.env.NEXT_PUBLIC_APP_URL || "/pricing"}
+                href={`${process.env.NEXT_PUBLIC_APP_URL}/auth?action=signup` || "/pricing"}
                 variant="primary"
                 size="lg"
               >
