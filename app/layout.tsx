@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   creator: "Maxtest AI",
   publisher: "Maxtest AI",
   metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL || "https://maxtest.ai"
+    process.env.NEXT_PUBLIC_SITE_URL || "https://maxtest.id"
   ),
   openGraph: {
     type: "website",

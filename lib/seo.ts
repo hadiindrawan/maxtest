@@ -7,7 +7,7 @@ interface SEOProps {
   image?: string;
 }
 
-const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://maxtest.ai";
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://maxtest.id";
 
 /**
  * Generate metadata for a page with SEO optimization

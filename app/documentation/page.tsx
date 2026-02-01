@@ -153,7 +153,7 @@ export default function DocumentationPage() {
                   Join Discord
                 </CTAButton>
                 <CTAButton
-                  href="mailto:support@maxtest.ai"
+                  href="mailto:support@maxtest.id"
                   variant="secondary"
                   size="lg"
                   external
