@@ -10,7 +10,10 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative z-10 flex-1 flex flex-col items-center justify-center pt-16 pb-24 px-4 sm:px-6">
         {/* Background Effects */}
-        <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+        <div
+          className="absolute inset-0 z-0 pointer-events-none overflow-hidden"
+          aria-hidden="true"
+        >
           <div className="absolute top-[-10%] left-[20%] w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px]" />
           <div className="absolute inset-0 bg-grid opacity-[0.07]" />
         </div>
@@ -116,7 +119,7 @@ export default function Home() {
               </span>
             </div>
             <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tight mb-6">
-              Why Choose <span className="text-primary">Maxtest</span>
+              Why Choose <span className="text-primary">Maxtest AI</span>
             </h2>
             <p className="text-lg text-slate-400 max-w-2xl mx-auto">
               Enterprise-grade testing infrastructure powered by AI

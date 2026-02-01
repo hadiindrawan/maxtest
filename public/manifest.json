@@ -1,7 +1,7 @@
 {
   "name": "Maxtest",
   "short_name": "Maxtest",
-  "description": "AI-Driven Testing Platform for High-Velocity Teams",
+  "description": "Maxtest AI - AI-Driven Testing Platform for High-Velocity Teams",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#060b13",
