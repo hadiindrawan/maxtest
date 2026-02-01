@@ -335,7 +335,7 @@ export default function PricingPage() {
                   </li>
                 </ul>
                 <a
-                  href="mailto:support@maxtest.ai"
+                  href="mailto:support@maxtest.id"
                   className="w-full py-3 px-4 rounded-xl bg-white text-background-dark font-bold hover:bg-slate-200 transition-colors flex items-center justify-center"
                 >
                   Contact Us

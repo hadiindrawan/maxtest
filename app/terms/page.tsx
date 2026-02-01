@@ -356,8 +356,8 @@ export default function TermsPage() {
                 </p>
                 <ul className="list-none mt-4 space-y-2">
                   <li>Email:{" "}
-                    <a href="mailto:support@maxtest.ai" className="text-primary hover:underline">
-                      support@maxtest.ai
+                    <a href="mailto:support@maxtest.id" className="text-primary hover:underline">
+                      support@maxtest.id
                     </a>
                   </li>
                   <li>Address: Maxtest AI Inc., [Your Address]</li>

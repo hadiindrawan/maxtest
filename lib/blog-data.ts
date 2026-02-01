@@ -16,7 +16,7 @@ export const blogPosts: BlogPost[] = [
     title: "Stop Flaky Tests: How RAG-Powered AI Fixes Broken Selectors",
     excerpt:
       "Flaky tests kill developer velocity. Learn how Retrieval-Augmented Generation (RAG) creates self-healing tests that adapt to UI changes—and how Maxtest implements this at scale.",
-    date: "2024-03-18",
+    date: "2026-02-01",
     readingTime: "8 min read",
     tags: ["Flaky Tests", "RAG", "Engineering", "SDET"],
     content: `
