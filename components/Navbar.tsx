@@ -45,6 +45,12 @@ export default function Navbar() {
             >
               Pricing
             </Link>
+            <Link
+              className="text-gray-400 hover:text-white text-sm font-medium transition-colors"
+              href="/blog"
+            >
+              Blog
+            </Link>
           </div>
           <div className="flex gap-3">
             <a
@@ -121,6 +127,13 @@ export default function Navbar() {
             onClick={() => setMobileMenuOpen(false)}
           >
             Pricing
+          </Link>
+          <Link
+            className="block text-gray-400 hover:text-white text-sm font-medium transition-colors py-2"
+            href="/blog"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            Blog
           </Link>
           <div className="pt-4 space-y-3 border-t border-white/10">
             <a
