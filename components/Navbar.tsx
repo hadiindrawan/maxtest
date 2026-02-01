@@ -48,13 +48,13 @@ export default function Navbar() {
           </div>
           <div className="flex gap-3">
             <a
-              href={process.env.NEXT_PUBLIC_APP_URL || "#"}
+              href={`${process.env.NEXT_PUBLIC_APP_URL}/auth?action=login` || "#"}
               className="px-4 h-9 flex items-center justify-center text-sm font-bold text-white transition hover:text-primary"
             >
               Sign In
             </a>
             <a
-              href={process.env.NEXT_PUBLIC_APP_URL || "#"}
+              href={`${process.env.NEXT_PUBLIC_APP_URL}/auth?action=signup` || "#"}
               className="flex items-center justify-center h-9 px-4 bg-primary/10 hover:bg-primary/20 border border-primary/50 text-primary text-sm font-bold rounded transition-all shadow-[0_0_5px_rgba(0,191,255,0.4)] hover:shadow-[0_0_10px_rgba(0,191,255,0.5),0_0_20px_rgba(0,191,255,0.3)]"
             >
               Get Started
@@ -124,13 +124,13 @@ export default function Navbar() {
           </Link>
           <div className="pt-4 space-y-3 border-t border-white/10">
             <a
-              href={process.env.NEXT_PUBLIC_APP_URL || "#"}
+              href={`${process.env.NEXT_PUBLIC_APP_URL}/auth?action=login`}
               className="block w-full px-4 h-10 flex items-center justify-center text-sm font-bold text-white border border-white/20 rounded transition-all hover:border-white/50 hover:bg-white/5"
             >
               Sign In
             </a>
             <a
-              href={process.env.NEXT_PUBLIC_APP_URL || "#"}
+              href={`${process.env.NEXT_PUBLIC_APP_URL}/auth?action=signup`}
               className="block w-full px-4 h-10 flex items-center justify-center bg-primary/10 hover:bg-primary/20 border border-primary/50 text-primary text-sm font-bold rounded transition-all shadow-[0_0_5px_rgba(0,191,255,0.4)]"
             >
               Get Started

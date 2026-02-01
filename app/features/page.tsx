@@ -1,4 +1,7 @@
-import { generateMetadata as generateSEOMetadata } from "@/lib/seo";
+import {
+  generateMetadata as generateSEOMetadata,
+  generateBreadcrumbSchema,
+} from "@/lib/seo";
 import AnimatedSection from "@/components/AnimatedSection";
 import FeatureCard from "@/components/FeatureCard";
 import CTAButton from "@/components/CTAButton";
@@ -11,8 +14,17 @@ export const metadata = generateSEOMetadata({
 });
 
 export default function FeaturesPage() {
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "Features", url: "/features" },
+  ]);
+
   return (
     <div className="flex flex-col min-h-screen bg-background-dark">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       {/* Hero Section */}
       <section className="relative z-10 py-20 px-4 sm:px-6">
         <div className="fixed inset-0 pointer-events-none bg-grid opacity-10 z-0" />
@@ -124,7 +136,7 @@ export default function FeaturesPage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <CTAButton
-                href={process.env.NEXT_PUBLIC_APP_URL || "/pricing"}
+                href={`${process.env.NEXT_PUBLIC_APP_URL}/auth?action=signup` || "/pricing"}
                 variant="primary"
                 size="lg"
               >
