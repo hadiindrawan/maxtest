@@ -132,7 +132,7 @@ export default function PricingPage() {
                         strokeWidth={2}
                       />
                     </svg>
-                    <span>10000 tokens / month</span>
+                    <span>50.000 tokens / month</span>
                   </li>
                   <li className="flex items-start gap-3 text-sm text-slate-300">
                     <svg
@@ -225,6 +225,16 @@ export default function PricingPage() {
                         <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
                       <span>10 users</span>
+                    </li>
+                    <li className="flex items-start gap-3 text-sm font-medium text-white">
+                      <svg
+                        className="w-5 h-5 text-primary flex-shrink-0 mt-0.5"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      <span>500.000 tokens / month</span>
                     </li>
                     <li className="flex items-start gap-3 text-sm font-medium text-white">
                       <svg
