@@ -25,7 +25,7 @@ export default function CTAButton({
 
   const variantClasses = {
     primary:
-      "bg-primary text-background-dark hover:bg-[#33ccff] shadow-[0_0_10px_rgba(0,191,255,0.5),0_0_20px_rgba(0,191,255,0.3)] hover:shadow-[0_0_15px_rgba(0,191,255,0.7),0_0_30px_rgba(0,191,255,0.5)]",
+      "bg-primary text-background-dark hover:bg-[#d8ff6a] shadow-[3px_3px_0_var(--color-primary-dark)] hover:shadow-[2px_2px_0_var(--color-primary-dark)]",
     secondary:
       "border border-white/20 bg-transparent text-white hover:border-white/50 hover:bg-white/5",
   };

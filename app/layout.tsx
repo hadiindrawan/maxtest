@@ -2,10 +2,22 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { Bricolage_Grotesque, Merriweather, Noto_Sans } from "next/font/google";
+
 import {
   generateOrganizationSchema,
   generateSoftwareApplicationSchema,
 } from "@/lib/seo";
+
+const bricolage = Bricolage_Grotesque({ subsets: ["latin"], weight: ["800"], variable: "--font-bricolage", display: "swap" });
+const notoSans = Noto_Sans({ subsets: ["latin"], weight: ["400", "500", "700"], variable: "--font-noto-sans", display: "swap" });
+const merriweather = Merriweather({
+  subsets: ["latin"],
+  weight: ["300", "400", "700", "900"],
+  style: ["normal", "italic"],
+  variable: "--font-merriweather",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: {
@@ -13,7 +25,7 @@ export const metadata: Metadata = {
     template: "%s | Maxtest AI",
   },
   description:
-    "Maxtest autonomously generates, maintains, and repairs your end-to-end test suite with AI-powered RAG intelligence. Ship code faster with zero flake.",
+    "Maxtest is the test platform your AI agent can operate. Write test cases, run suites and triage failures from Claude, Cursor or any MCP client.",
   keywords: [
     "Maxtest AI",
     "TestOps",
@@ -42,7 +54,7 @@ export const metadata: Metadata = {
     siteName: "Maxtest",
     title: "Maxtest - AI-Driven Testing Platform",
     description:
-      "Maxtest autonomously generates, maintains, and repairs your end-to-end test suite. Ship code faster with zero flake.",
+      "Maxtest is the test platform your AI agent can operate. Write test cases, run suites and triage failures from Claude, Cursor or any MCP client.",
     images: [
       {
         url: "/favicon-img-w.png",
@@ -90,19 +102,8 @@ export default function RootLayout({
   const softwareSchema = generateSoftwareApplicationSchema();
 
   return (
-    <html lang="en" className="dark">
+    <html lang="en" className={`dark ${bricolage.variable} ${notoSans.variable} ${merriweather.variable}`}>
       <head>
-        {/* Google Fonts */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Noto+Sans:wght@400;500;700&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap"
-          rel="stylesheet"
-        />
 
         {/* Structured Data */}
         <script

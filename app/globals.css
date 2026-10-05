@@ -1,40 +1,51 @@
 @import "tailwindcss";
 
 :root {
-  --background: #060b13;
-  --foreground: #ffffff;
-  --surface: #0f1621;
-  --card: #0b121c;
-  --border: #2e5c6b;
-  --primary: #00bfff;
-  --neon-cyan: #00bfff;
+  --background: #0e0e10;
+  --foreground: #f2f2ee;
+  --surface: #17171a;
+  --card: #131316;
+  --border: #2e2e34;
+  --primary: #c6f24a;
+  /* Also defined here so arbitrary values like shadow-[3px_3px_0_var(--color-primary-dark)] always resolve */
+  --color-primary: #c6f24a;
+  --color-primary-dark: #6d8a1f;
+  --neon-cyan: #c6f24a;
   --neon-purple: #a855f7;
   --neon-blue: #3b82f6;
 }
 
 @theme inline {
-  /* Colors */
-  --color-background-dark: #060b13;
+  /* Colors: new names */
+  --color-ink: #0e0e10;
+  --color-panel: #17171a;
+  --color-hairline: #2e2e34;
+  --color-paper: #f2f2ee;
+  --color-primary: #c6f24a;
+  --color-primary-dark: #6d8a1f;
+
+  /* Colors: legacy names kept so other pages keep working, now on the new palette */
+  --color-background-dark: #0e0e10;
   --color-background-light: #eff2f6;
-  --color-surface-dark: #0f1621;
-  --color-card-dark: #0b121c;
-  --color-border-dark: #2e5c6b;
-  --color-primary: #00bfff;
-  --color-neon-cyan: #00bfff;
+  --color-surface-dark: #17171a;
+  --color-card-dark: #131316;
+  --color-border-dark: #2e2e34;
+  --color-neon-cyan: #c6f24a;
   --color-neon-purple: #a855f7;
   --color-neon-blue: #3b82f6;
 
-  /* Fonts */
-  --font-display: "Space Grotesk", sans-serif;
-  --font-body: "Noto Sans", sans-serif;
-  --font-serif: "Merriweather", serif;
-  --font-mono: monospace;
+  /* Fonts (CSS variables are set by next/font in layout.tsx) */
+  --font-headline: var(--font-bricolage), "Bricolage Grotesque", system-ui, sans-serif;
+  --font-body: var(--font-noto-sans), "Noto Sans", system-ui, sans-serif;
+  --font-display: var(--font-noto-sans), "Noto Sans", system-ui, sans-serif;
+  --font-serif: var(--font-merriweather), "Merriweather", serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
-  /* Shadows */
-  --shadow-neon: 0 0 10px rgba(0, 191, 255, 0.5), 0 0 20px rgba(0, 191, 255, 0.3);
-  --shadow-neon-sm: 0 0 5px rgba(0, 191, 255, 0.4);
-  --shadow-neon-hover: 0 0 15px rgba(0, 191, 255, 0.7), 0 0 30px rgba(0, 191, 255, 0.5);
-  --shadow-neon-strong: 0 0 30px -5px rgba(0, 191, 255, 0.6);
+  /* Shadows: legacy "neon" names re-colored to lime for the pages that still use them */
+  --shadow-neon: 0 0 10px rgba(198, 242, 74, 0.5), 0 0 20px rgba(198, 242, 74, 0.3);
+  --shadow-neon-sm: 0 0 5px rgba(198, 242, 74, 0.4);
+  --shadow-neon-hover: 0 0 15px rgba(198, 242, 74, 0.7), 0 0 30px rgba(198, 242, 74, 0.5);
+  --shadow-neon-strong: 0 0 30px -5px rgba(198, 242, 74, 0.6);
 
   /* Animations */
   --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
@@ -45,7 +56,7 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -59,11 +70,11 @@ body {
   }
 
   .text-glow {
-    text-shadow: 0 0 20px rgba(0, 191, 255, 0.3);
+    text-shadow: 0 0 20px rgba(198, 242, 74, 0.3);
   }
 
   .neon-glow-cyan {
-    box-shadow: 0 -4px 20px -5px #00bfff;
+    box-shadow: 0 -4px 20px -5px #c6f24a;
   }
 
   .neon-glow-purple {
@@ -83,9 +94,9 @@ body {
   }
 
   .bg-grid {
-    background-image: linear-gradient(rgba(0, 191, 255, 0.03) 1px,
+    background-image: linear-gradient(rgba(198, 242, 74, 0.03) 1px,
         transparent 1px),
-      linear-gradient(90deg, rgba(0, 191, 255, 0.03) 1px, transparent 1px);
+      linear-gradient(90deg, rgba(198, 242, 74, 0.03) 1px, transparent 1px);
     background-size: 40px 40px;
     mask-image: linear-gradient(to bottom,
         transparent,
@@ -123,16 +134,16 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #0f1f24;
+  background: #17171a;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #2e5c6b;
+  background: #2e2e34;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #00bfff;
+  background: #c6f24a;
 }
 
 /* Keyframe Animations */
@@ -187,5 +198,60 @@ body {
 
   50% {
     opacity: 0.5;
+  }
+}
+/* Home-page motion. Only applied when the visitor has not asked for reduced motion;
+   without it the final state is simply the default state. */
+@media (prefers-reduced-motion: no-preference) {
+  .reveal {
+    animation: reveal 0.45s ease-out both;
+    animation-delay: var(--d, 0s);
+  }
+
+  .typed {
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    vertical-align: bottom;
+    width: 0;
+    animation: typing 1.2s steps(var(--steps, 24), end) var(--d, 0s) forwards;
+  }
+
+  .wobble-once {
+    transform-origin: 50% 90%;
+    animation: wobble 0.6s ease-in-out var(--d, 2.4s) 1;
+  }
+}
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes typing {
+  to {
+    width: var(--w, 100%);
+  }
+}
+
+@keyframes wobble {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+
+  25% {
+    transform: rotate(-8deg);
+  }
+
+  75% {
+    transform: rotate(8deg);
   }
 }

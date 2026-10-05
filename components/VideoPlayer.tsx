@@ -41,7 +41,8 @@ export default function VideoPlayer({
             {/* Let's try fetching the max res default thumbnail from youtube */}
             <img
               src={`https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`}
-              alt="Video Thumbnail"
+              alt="Maxtest demo video thumbnail"
+              loading="lazy"
               className="w-full h-full object-cover opacity-80"
             />
             <div className="absolute inset-0 bg-black/40" /> {/* Overlay for better text/button visibility */}
@@ -52,12 +53,8 @@ export default function VideoPlayer({
             className="absolute inset-0 flex items-center justify-center group-hover:bg-black/10 transition-colors cursor-pointer"
             aria-label="Play video"
           >
-            <div className="w-20 h-20 rounded-full bg-primary/90 hover:bg-primary flex items-center justify-center transition-all shadow-neon scale-100 group-hover:scale-110">
-              <svg
-                className="w-10 h-10 text-white ml-1"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-              >
+            <div className="w-20 h-20 rounded-full border-2 border-paper bg-primary flex items-center justify-center shadow-[3px_3px_0_var(--color-primary-dark)] transition-transform group-hover:scale-105">
+              <svg className="w-10 h-10 text-ink ml-1" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M8 5v14l11-7z" />
               </svg>
             </div>

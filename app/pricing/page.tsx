@@ -4,6 +4,7 @@ import { useState } from "react";
 import { generateFAQSchema } from "@/lib/seo";
 import AnimatedSection from "@/components/AnimatedSection";
 import { cn } from "@/lib/utils";
+import { signupUrl } from "@/lib/links";
 
 export default function PricingPage() {
   const [isYearly, setIsYearly] = useState(false);
@@ -168,7 +169,7 @@ export default function PricingPage() {
                   </li>
                 </ul>
                 <a
-                  href={`${process.env.NEXT_PUBLIC_APP_URL}/auth?action=signup` || "#"}
+                  href={signupUrl()}
                   className="w-full py-3 px-4 rounded-xl border border-primary/50 bg-primary/5 text-primary font-bold hover:bg-primary/10 hover:border-primary transition-colors flex items-center justify-center gap-2"
                 >
                   Start Free
@@ -269,7 +270,7 @@ export default function PricingPage() {
                     </li>
                   </ul>
                   <a
-                    href={`${process.env.NEXT_PUBLIC_APP_URL}/auth?action=signup` || "#"}
+                    href={signupUrl()}
                     className="w-full py-4 px-4 rounded-xl bg-primary text-background-dark font-extrabold text-lg hover:bg-cyan-300 transition-colors shadow-[0_0_10px_rgba(0,191,255,0.5),0_0_20px_rgba(0,191,255,0.3)] flex items-center justify-center"
                   >
                     Sign Up

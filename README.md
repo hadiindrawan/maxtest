@@ -83,15 +83,22 @@ Create a `.env.local` file with the following variables:
 ```env
 NEXT_PUBLIC_SITE_URL=https://maxtest.ai
 NEXT_PUBLIC_APP_URL=https://app.maxtest.ai
+NEXT_PUBLIC_MCP_URL=https://api.maxtest.ai
 ```
+
+See `.env.example`.
+
+- `NEXT_PUBLIC_SITE_URL`: public URL of this marketing site (metadata, sitemap).
+- `NEXT_PUBLIC_APP_URL`: dashboard URL; "Start free" and "Sign in" link here. If unset, signup falls back to `/pricing`.
+- `NEXT_PUBLIC_MCP_URL`: public API host serving the MCP endpoint (`/mcp` is appended). If unset, the home page shows a `<your-maxtest-host>` placeholder.
 
 ## Design System
 
 The landing page uses a custom design system based on:
 
-- **Colors**: Neon cyan (#00bfff) primary, dark backgrounds
-- **Fonts**: Space Grotesk (display), Noto Sans (body)
-- **Effects**: Glassmorphism, neon glows, smooth animations
+- **Colors**: ink background (#0e0e10), lime (#c6f24a) as the only accent
+- **Fonts**: Bricolage Grotesque (headlines), Noto Sans (body), monospace for tool calls
+- **Characters**: Max the rocket and a cast of role characters (`public/characters`, built by `scripts/build-characters.mjs`)
 - **Components**: Modular, reusable React components
 
 ## SEO Features

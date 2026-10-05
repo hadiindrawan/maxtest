@@ -1,0 +1,90 @@
+{
+  "max-main.png": {
+    "width": 387,
+    "height": 480
+  },
+  "max-main-noexhaust.png": {
+    "width": 506,
+    "height": 480
+  },
+  "max-idle.png": {
+    "width": 194,
+    "height": 241
+  },
+  "max-idle-noexhaust.png": {
+    "width": 191,
+    "height": 189
+  },
+  "max-smile.png": {
+    "width": 214,
+    "height": 241
+  },
+  "max-smile-noexhaust.png": {
+    "width": 212,
+    "height": 187
+  },
+  "cast-writer.png": {
+    "width": 177,
+    "height": 220
+  },
+  "cast-writer-noexhaust.png": {
+    "width": 191,
+    "height": 189
+  },
+  "cast-runner.png": {
+    "width": 191,
+    "height": 220
+  },
+  "cast-runner-noexhaust.png": {
+    "width": 200,
+    "height": 178
+  },
+  "cast-detective.png": {
+    "width": 215,
+    "height": 220
+  },
+  "cast-detective-noexhaust.png": {
+    "width": 231,
+    "height": 184
+  },
+  "cast-scribe.png": {
+    "width": 195,
+    "height": 220
+  },
+  "cast-scribe-noexhaust.png": {
+    "width": 212,
+    "height": 187
+  },
+  "cast-reporter.png": {
+    "width": 208,
+    "height": 220
+  },
+  "cast-reporter-noexhaust.png": {
+    "width": 222,
+    "height": 183
+  },
+  "cast-guard.png": {
+    "width": 177,
+    "height": 220
+  },
+  "cast-guard-noexhaust.png": {
+    "width": 191,
+    "height": 189
+  },
+  "cast-pass.png": {
+    "width": 195,
+    "height": 220
+  },
+  "cast-pass-noexhaust.png": {
+    "width": 212,
+    "height": 187
+  },
+  "cast-fail.png": {
+    "width": 215,
+    "height": 220
+  },
+  "cast-fail-noexhaust.png": {
+    "width": 231,
+    "height": 184
+  }
+}

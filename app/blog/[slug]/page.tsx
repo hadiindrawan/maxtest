@@ -3,6 +3,7 @@ import { blogPosts, BlogPost } from "@/lib/blog-data";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import CTAButton from "@/components/CTAButton";
+import { signupUrl } from "@/lib/links";
 
 // SSG: Generate params for all posts
 export async function generateStaticParams() {
@@ -143,7 +144,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           </p>
           <div className="flex justify-center">
             <CTAButton
-              href={`${process.env.NEXT_PUBLIC_APP_URL}/auth?action=signup` || "/pricing"}
+              href={signupUrl()}
               variant="primary"
               size="lg"
             >
