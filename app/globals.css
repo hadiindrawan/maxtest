@@ -10,9 +10,6 @@
   /* Also defined here so arbitrary values like shadow-[3px_3px_0_var(--color-primary-dark)] always resolve */
   --color-primary: #c6f24a;
   --color-primary-dark: #6d8a1f;
-  --neon-cyan: #c6f24a;
-  --neon-purple: #a855f7;
-  --neon-blue: #3b82f6;
 }
 
 @theme inline {
@@ -26,13 +23,9 @@
 
   /* Colors: legacy names kept so other pages keep working, now on the new palette */
   --color-background-dark: #0e0e10;
-  --color-background-light: #eff2f6;
   --color-surface-dark: #17171a;
   --color-card-dark: #131316;
   --color-border-dark: #2e2e34;
-  --color-neon-cyan: #c6f24a;
-  --color-neon-purple: #a855f7;
-  --color-neon-blue: #3b82f6;
 
   /* Fonts (CSS variables are set by next/font in layout.tsx) */
   --font-headline: var(--font-bricolage), "Bricolage Grotesque", system-ui, sans-serif;
@@ -40,17 +33,6 @@
   --font-display: var(--font-noto-sans), "Noto Sans", system-ui, sans-serif;
   --font-serif: var(--font-merriweather), "Merriweather", serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-
-  /* Shadows: legacy "neon" names re-colored to lime for the pages that still use them */
-  --shadow-neon: 0 0 10px rgba(198, 242, 74, 0.5), 0 0 20px rgba(198, 242, 74, 0.3);
-  --shadow-neon-sm: 0 0 5px rgba(198, 242, 74, 0.4);
-  --shadow-neon-hover: 0 0 15px rgba(198, 242, 74, 0.7), 0 0 30px rgba(198, 242, 74, 0.5);
-  --shadow-neon-strong: 0 0 30px -5px rgba(198, 242, 74, 0.6);
-
-  /* Animations */
-  --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-  --animate-float: float 6s ease-in-out infinite;
-  --animate-fade-in: fadeIn 0.6s ease-out;
 }
 
 body {
@@ -59,73 +41,6 @@ body {
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-/* Utility Classes */
-@layer utilities {
-  .glass-panel {
-    background: rgba(15, 22, 33, 0.7);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-  }
-
-  .text-glow {
-    text-shadow: 0 0 20px rgba(198, 242, 74, 0.3);
-  }
-
-  .neon-glow-cyan {
-    box-shadow: 0 -4px 20px -5px #c6f24a;
-  }
-
-  .neon-glow-purple {
-    box-shadow: 0 -4px 20px -5px #a855f7;
-  }
-
-  .neon-glow-blue {
-    box-shadow: 0 -4px 20px -5px #3b82f6;
-  }
-
-  .card-hover-effect {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-
-  .card-hover-effect:hover {
-    transform: translateY(-4px);
-  }
-
-  .bg-grid {
-    background-image: linear-gradient(rgba(198, 242, 74, 0.03) 1px,
-        transparent 1px),
-      linear-gradient(90deg, rgba(198, 242, 74, 0.03) 1px, transparent 1px);
-    background-size: 40px 40px;
-    mask-image: linear-gradient(to bottom,
-        transparent,
-        10%,
-        black,
-        90%,
-        transparent);
-  }
-
-  .syntax-keyword {
-    color: #c678dd;
-  }
-
-  .syntax-string {
-    color: #98c379;
-  }
-
-  .syntax-function {
-    color: #61afef;
-  }
-
-  .syntax-comment {
-    color: #5c6370;
-    font-style: italic;
-  }
-
-  .syntax-constant {
-    color: #d19a66;
-  }
 }
 
 /* Custom Scrollbar */
@@ -146,60 +61,6 @@ body {
   background: #c6f24a;
 }
 
-/* Keyframe Animations */
-@keyframes float {
-  0% {
-    transform: translateY(0px);
-  }
-
-  50% {
-    transform: translateY(-10px);
-  }
-
-  100% {
-    transform: translateY(0px);
-  }
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes shimmer {
-  0% {
-    transform: translateY(-100%);
-    opacity: 0;
-  }
-
-  50% {
-    opacity: 0.5;
-  }
-
-  100% {
-    transform: translateY(100%);
-    opacity: 0;
-  }
-}
-
-@keyframes pulse {
-
-  0%,
-  100% {
-    opacity: 1;
-  }
-
-  50% {
-    opacity: 0.5;
-  }
-}
 /* Home-page motion. Only applied when the visitor has not asked for reduced motion;
    without it the final state is simply the default state. */
 @media (prefers-reduced-motion: no-preference) {

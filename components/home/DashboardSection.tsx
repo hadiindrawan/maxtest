@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Tag from "@/components/ui/Tag";
+import Eyebrow from "@/components/ui/Eyebrow";
 import { DASHBOARD } from "@/lib/home-content";
 
 /** Pass `screenshotSrc` once the owner supplies a screenshot; until then a labeled placeholder shows. */
@@ -8,7 +8,7 @@ export default function DashboardSection({ screenshotSrc }: { screenshotSrc?: st
     <section className="mx-auto max-w-6xl border-t border-hairline px-4 py-14 sm:px-6">
       <div className="grid gap-10 lg:grid-cols-12">
         <div className="lg:col-span-5">
-          <Tag>{DASHBOARD.tag}</Tag>
+          <Eyebrow>{DASHBOARD.tag}</Eyebrow>
           <h2 className="mt-3 font-headline text-3xl font-extrabold tracking-tight text-paper">{DASHBOARD.title}</h2>
           <ul className="mt-5 space-y-2 text-paper/75">
             {DASHBOARD.items.map((item) => (

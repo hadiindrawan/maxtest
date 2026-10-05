@@ -3,7 +3,7 @@
 import { useRef, useState } from "react";
 import Bubble from "@/components/ui/Bubble";
 import Character from "@/components/ui/Character";
-import Tag from "@/components/ui/Tag";
+import Eyebrow from "@/components/ui/Eyebrow";
 import { CAST, DEFAULT_CAST_ROLE } from "@/lib/home-content";
 import { nextTabIndex } from "@/lib/tabs";
 import { cn } from "@/lib/utils";
@@ -23,7 +23,7 @@ export default function CastSection() {
 
   return (
     <section className="mx-auto max-w-6xl border-t border-hairline px-4 py-14 sm:px-6">
-      <Tag>Meet the cast</Tag>
+      <Eyebrow>Meet the cast</Eyebrow>
       <h2 className="mt-3 font-headline text-3xl font-extrabold tracking-tight text-paper">
         Five jobs, about 40 real tools.
       </h2>

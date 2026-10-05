@@ -1,155 +1,92 @@
-import { generateMetadata as generateSEOMetadata } from "@/lib/seo";
-import { blogPosts, BlogPost } from "@/lib/blog-data";
-import { notFound } from "next/navigation";
 import Link from "next/link";
-import CTAButton from "@/components/CTAButton";
+import { notFound } from "next/navigation";
+import Button from "@/components/ui/Button";
+import Icon from "@/components/ui/Icon";
+import { formatReadTime, readMinutes } from "@/lib/blog";
+import { blogPosts } from "@/lib/blog-data";
 import { signupUrl } from "@/lib/links";
+import { generateMetadata as generateSEOMetadata } from "@/lib/seo";
 
-// SSG: Generate params for all posts
 export async function generateStaticParams() {
-  return blogPosts.map((post) => ({
-    slug: post.slug,
-  }));
+  return blogPosts.map((post) => ({ slug: post.slug }));
 }
 
-// Metadata for SEO
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const post = blogPosts.find((p) => p.slug === slug);
   if (!post) return;
-
-  return generateSEOMetadata({
-    title: post.title,
-    description: post.excerpt,
-    path: `/blog/${slug}`,
-    // In a real app, you'd add: type: "article", publishedTime: post.date, etc.
-  });
+  return generateSEOMetadata({ title: post.title, description: post.excerpt, path: `/blog/${slug}` });
 }
+
+const content = [
+  "blog-content min-w-0 break-words",
+  "[&>h2]:mb-5 [&>h2]:mt-14 [&>h2]:font-headline [&>h2]:text-3xl [&>h2]:font-extrabold [&>h2]:leading-tight [&>h2]:tracking-tight [&>h2]:text-paper",
+  "[&>h3]:mb-4 [&>h3]:mt-10 [&>h3]:font-headline [&>h3]:text-2xl [&>h3]:font-extrabold [&>h3]:text-paper",
+  "[&>p]:mb-6 [&>p]:font-serif [&>p]:text-lg [&>p]:leading-[1.75] [&>p]:text-paper/85",
+  "[&>ul]:my-8 [&>ul]:space-y-3",
+  "[&>ol]:my-8 [&>ol]:list-decimal [&>ol]:space-y-3 [&>ol]:pl-6 [&>ol>li]:font-serif [&>ol>li]:text-lg [&>ol>li]:leading-[1.75] [&>ol>li]:text-paper/85 [&>ol>li]:marker:font-mono [&>ol>li]:marker:text-primary",
+  "[&>ul>li]:relative [&>ul>li]:pl-6 [&>ul>li]:font-serif [&>ul>li]:text-lg [&>ul>li]:leading-[1.75] [&>ul>li]:text-paper/85",
+  "[&>ul>li]:before:absolute [&>ul>li]:before:left-0 [&>ul>li]:before:text-primary [&>ul>li]:before:content-['▸']",
+  "[&>ul>li>strong]:font-bold [&>ul>li>strong]:text-paper",
+  "[&>pre]:my-8 [&>pre]:overflow-x-auto [&>pre]:rounded-lg [&>pre]:border-2 [&>pre]:border-paper [&>pre]:bg-panel [&>pre]:p-5 [&>pre]:shadow-[3px_3px_0_var(--color-primary)]",
+  "[&>pre>code]:block [&>pre>code]:font-mono [&>pre>code]:text-[14px] [&>pre>code]:leading-[1.7] [&>pre>code]:text-paper/90",
+  "[&>blockquote]:my-8 [&>blockquote]:border-l-2 [&>blockquote]:border-primary [&>blockquote]:pl-5 [&>blockquote]:font-serif [&>blockquote]:text-lg [&>blockquote]:italic [&>blockquote]:text-paper/70",
+  "[&_a]:text-primary [&_a]:underline [&_a]:underline-offset-4",
+  "[&_code:not(pre_code)]:font-mono [&_code:not(pre_code)]:text-[0.9em] [&_code:not(pre_code)]:text-primary",
+].join(" ");
 
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const post = blogPosts.find((p) => p.slug === slug);
+  if (!post) notFound();
 
-  if (!post) {
-    notFound();
-  }
-
-  // Generate Article Schema
   const articleSchema = {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: post.title,
     description: post.excerpt,
-    image: `${process.env.NEXT_PUBLIC_SITE_URL}/favicon-img-w.png`, // Placeholder
+    image: `${process.env.NEXT_PUBLIC_SITE_URL}/favicon-img-w.png`,
     datePublished: post.date,
-    author: {
-      "@type": "Organization",
-      name: "Maxtest AI",
-    },
-    mainEntityOfPage: {
-      "@type": "WebPage",
-      "@id": `${process.env.NEXT_PUBLIC_SITE_URL}/blog/${post.slug}`,
-    },
+    author: { "@type": "Organization", name: "Maxtest AI" },
+    mainEntityOfPage: { "@type": "WebPage", "@id": `${process.env.NEXT_PUBLIC_SITE_URL}/blog/${post.slug}` },
   };
+  const signup = signupUrl();
 
   return (
-    <div className="flex flex-col min-h-screen bg-background-dark">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
-      />
+    <div className="min-h-screen bg-ink">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
 
-      <article className="relative py-12 sm:py-20 px-4 sm:px-6">
-        <div className="max-w-[680px] mx-auto">
-          {/* Header */}
-          <div className="mb-16">
-            <Link
-              href="/blog"
-              className="inline-flex items-center text-sm text-slate-500 hover:text-primary mb-10 transition-colors group"
-            >
-              <svg
-                className="w-4 h-4 mr-2 transform group-hover:-translate-x-1 transition-transform"
-                fill="none"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  d="M15 19l-7-7 7-7"
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                />
-              </svg>
-              Back to Blog
-            </Link>
+      <article className="px-4 py-12 sm:px-6 sm:py-16">
+        <div className="mx-auto max-w-[680px]">
+          <Link
+            href="/blog"
+            className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.14em] text-paper/55 hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+          >
+            <Icon name="arrow-right" size={14} className="rotate-180" />
+            Blog
+          </Link>
 
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white tracking-tight leading-[1.1] mb-8">
-              {post.title}
-            </h1>
+          <h1 className="mt-8 font-headline text-4xl font-extrabold leading-[1.08] tracking-tight text-paper sm:text-5xl">
+            {post.title}
+          </h1>
+          <p className="mt-6 border-b border-hairline pb-8 font-mono text-xs text-paper/55">
+            Maxtest AI Team · {post.date} · {formatReadTime(readMinutes(post.content))}
+          </p>
 
-            <div className="flex items-center gap-4 pb-10 border-b border-white/5">
-              <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-lg">
-                M
-              </div>
-              <div className="flex flex-col">
-                <span className="text-white font-medium">Maxtest AI Team</span>
-                <div className="flex items-center text-sm text-slate-500 gap-2 mt-1">
-                  <span>{post.date}</span>
-                  <span>•</span>
-                  <span>{post.readingTime}</span>
-                </div>
-              </div>
-            </div>
-          </div>
+          <div className={`mt-10 ${content}`} dangerouslySetInnerHTML={{ __html: post.content }} />
 
-          {/* Content */}
-          <div
-            className="
-              blog-content
-              [&>h2]:text-white [&>h2]:text-3xl [&>h2]:sm:text-4xl [&>h2]:font-bold [&>h2]:mb-6 [&>h2]:mt-16 [&>h2]:leading-tight
-              [&>h3]:text-white [&>h3]:text-2xl [&>h3]:font-bold [&>h3]:mb-4 [&>h3]:mt-12
-              [&>p]:text-gray-300 [&>p]:text-xl [&>p]:leading-[1.75] [&>p]:mb-6 [&>p]:font-serif
-              [&>ul]:my-8 [&>ul]:space-y-3
-              [&>ul>li]:text-gray-300 [&>ul>li]:text-xl [&>ul>li]:leading-[1.75] [&>ul>li]:pl-2 [&>ul>li]:font-serif
-              [&>ul>li>strong]:text-white [&>ul>li>strong]:font-bold
-              [&>pre]:bg-[#0d1117] [&>pre]:border [&>pre]:border-white/5 [&>pre]:rounded-lg [&>pre]:p-6 [&>pre]:my-10 [&>pre]:overflow-x-auto
-              [&>pre>code]:text-gray-300 [&>pre>code]:text-[15px] [&>pre>code]:leading-[1.7] [&>pre>code]:font-mono [&>pre>code]:block
-              [&>blockquote]:border-l-4 [&>blockquote]:border-primary [&>blockquote]:pl-6 [&>blockquote]:my-10 [&>blockquote]:italic [&>blockquote]:text-gray-400 [&>blockquote]:text-xl
-              [&_code:not(pre_code)]:text-primary [&_code:not(pre_code)]:bg-primary/10 [&_code:not(pre_code)]:px-1.5 [&_code:not(pre_code)]:py-0.5 [&_code:not(pre_code)]:rounded [&_code:not(pre_code)]:text-sm [&_code:not(pre_code)]:font-mono
-            "
-            dangerouslySetInnerHTML={{ __html: post.content }}
-          />
-
-          {/* Tags */}
-          <div className="mt-20 pt-10 border-t border-white/5">
-            <div className="flex flex-wrap gap-3">
-              {post.tags.map(tag => (
-                <span key={tag} className="text-sm font-medium text-slate-500 bg-white/5 px-4 py-2 rounded-full hover:bg-white/10 hover:text-slate-400 transition-colors cursor-default">
-                  {tag}
-                </span>
-              ))}
-            </div>
-          </div>
+          <p className="mt-14 border-t border-hairline pt-6 font-mono text-xs text-paper/50">{post.tags.join(" · ")}</p>
         </div>
       </article>
 
-      {/* CTA */}
-      <section className="py-20 px-4 mt-8 bg-surface-dark border-y border-white/5">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl font-bold text-white mb-4">
-            Ready to implement this solution?
-          </h2>
-          <p className="text-slate-400 mb-8">
-            Start using Maxtest AI today and ship quality code faster.
-          </p>
-          <div className="flex justify-center">
-            <CTAButton
-              href={signupUrl()}
-              variant="primary"
-              size="lg"
-            >
-              Start for Free
-            </CTAButton>
+      <section className="border-t border-hairline px-4 py-16 sm:px-6">
+        <div className="mx-auto max-w-[680px]">
+          <h2 className="font-headline text-3xl font-extrabold tracking-tight text-paper">Ready to try it?</h2>
+          <p className="mt-3 text-paper/70">Start with Maxtest and let your agent run your tests.</p>
+          <div className="mt-6">
+            <Button href={signup} external={signup.startsWith("http")}>
+              Start free
+            </Button>
           </div>
         </div>
       </section>

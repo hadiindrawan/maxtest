@@ -135,33 +135,40 @@ function render(opts) {
 }
 
 async function sticker(rgba, crop, borderPx, noTail = false) {
-  const { W, H } = B;
-  const p = Math.ceil(borderPx * 1.6) + 4;
-  const ext = { top: p, bottom: p, left: p, right: p, background: { r: 0, g: 0, b: 0, alpha: 0 } };
-  const rawOpt = { raw: { width: W, height: H, channels: 4 } };
-  const T = Math.round(crop.height * 0.030) + 4;
+  const { W } = B;
+  const S = 3; // supersample so the border and outline edges are smooth
+  // the body mask is eroded, so the cut margin must exceed outline thickness + erosion or the nose tip loses its outline
+  const T = Math.round(crop.height * 0.030) + 6;
   const cut = (buf) => { const o = Buffer.alloc(crop.width * crop.height * 4);
     for (let y = 0; y < crop.height; y++) for (let x = 0; x < crop.width; x++) {
       const si = (crop.top + y) * W + crop.left + x, di = y * crop.width + x;
       buf.copy(o, di * 4, si * 4, si * 4 + 4);
-      if (noTail && B.coreDist[si] > T && !B.decorZone[si]) o[di * 4 + 3] = 0; }
+      if (noTail && !B.decorZone[si] && (B.coreDist[si] > T || (B.coreDist[si] > 0 && B.L[si] >= 190 && B.S[si] < 0.2))) o[di * 4 + 3] = 0; }
     return o; };
   const rawC = { raw: { width: crop.width, height: crop.height, channels: 4 } };
-  const fullC = await sharp(cut(rgba.full), rawC).extend(ext).png().toBuffer();
-  const bodyC = await sharp(cut(rgba.body), rawC).extend(ext).png().toBuffer();
-  const w = crop.width + 2 * p, h = crop.height + 2 * p;
+  const bp = borderPx * S;
+  const p = Math.ceil(bp * 1.6) + 4;
+  const ext = { top: p, bottom: p, left: p, right: p, background: { r: 0, g: 0, b: 0, alpha: 0 } };
+  const up = (buf) => sharp(cut(buf), rawC).resize({ width: crop.width * S, height: crop.height * S, kernel: 'lanczos3' }).extend(ext).png().toBuffer();
+  const fullC = await up(rgba.full);
+  const bodyC = await up(rgba.body);
+  const w = crop.width * S + 2 * p, h = crop.height * S + 2 * p;
   const { data: bd } = await sharp(bodyC).raw().toBuffer({ resolveWithObject: true });
   const d = new Float32Array(w * h);
-  for (let i = 0; i < w * h; i++) d[i] = bd[i * 4 + 3] > 20 ? 0 : 1e9;
+  for (let i = 0; i < w * h; i++) d[i] = bd[i * 4 + 3] > 60 ? 0 : 1e9;
   for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) { const i = y * w + x; let v = d[i];
     if (x > 0) v = Math.min(v, d[i - 1] + 1); if (y > 0) { v = Math.min(v, d[i - w] + 1); if (x > 0) v = Math.min(v, d[i - w - 1] + 1.414); if (x < w - 1) v = Math.min(v, d[i - w + 1] + 1.414); } d[i] = v; }
   for (let y = h - 1; y >= 0; y--) for (let x = w - 1; x >= 0; x--) { const i = y * w + x; let v = d[i];
     if (x < w - 1) v = Math.min(v, d[i + 1] + 1); if (y < h - 1) { v = Math.min(v, d[i + w] + 1); if (x < w - 1) v = Math.min(v, d[i + w + 1] + 1.414); if (x > 0) v = Math.min(v, d[i + w - 1] + 1.414); } d[i] = v; }
+  // smooth the border: distance field blurred slightly, then thresholded with an anti-aliased edge
   const bl = Buffer.alloc(w * h * 4);
-  for (let i = 0; i < w * h; i++) { bl[i * 4] = 242; bl[i * 4 + 1] = 242; bl[i * 4 + 2] = 238; bl[i * 4 + 3] = Math.round(clamp(borderPx + 0.5 - d[i]) * 255); }
-  const border = await sharp(bl, { raw: { width: w, height: h, channels: 4 } }).png().toBuffer();
+  for (let i = 0; i < w * h; i++) { bl[i * 4] = 242; bl[i * 4 + 1] = 242; bl[i * 4 + 2] = 238; bl[i * 4 + 3] = Math.round(clamp(bp + 0.5 - d[i]) * 255); }
+  const border = await sharp(bl, { raw: { width: w, height: h, channels: 4 } }).blur(1.2).png().toBuffer();
   const out = await sharp(border).composite([{ input: fullC }]).png().toBuffer();
-  return sharp(out).trim({ threshold: 4 }).png();
+  const trimmed = await sharp(out).trim({ threshold: 4 }).png().toBuffer();
+  const tm = await sharp(trimmed).metadata();
+  // net 2x of the source crop: plenty for the 220-480px shipped sizes
+  return sharp(trimmed).resize({ height: Math.round((tm.height * 2) / S), kernel: 'lanczos3' }).png();
 }
 
 const CROPS = {

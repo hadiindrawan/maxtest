@@ -1,215 +1,123 @@
-import {
-  generateMetadata as generateSEOMetadata,
-  generateBreadcrumbSchema,
-} from "@/lib/seo";
-import AnimatedSection from "@/components/AnimatedSection";
-import CTAButton from "@/components/CTAButton";
+import ToolsReference from "@/components/docs/ToolsReference";
+import CopyCommand from "@/components/ui/CopyCommand";
+import Eyebrow from "@/components/ui/Eyebrow";
+import Icon from "@/components/ui/Icon";
+import PageHeader from "@/components/ui/PageHeader";
+import SectionRail from "@/components/ui/SectionRail";
+import { DOCS, DOCS_SECTIONS, GUIDES_COMING, HELP_LINKS, SCOPES } from "@/lib/docs-content";
+import { buildConnectCommand } from "@/lib/mcp-command";
+import { MCP_TOOLS } from "@/lib/mcp-tools";
+import { generateBreadcrumbSchema, generateMetadata as generateSEOMetadata } from "@/lib/seo";
 
 export const metadata = generateSEOMetadata({
-  title: "Documentation - Getting Started with Maxtest",
+  title: "Documentation - Connect Your Agent to Maxtest",
   description:
-    "Learn how to get started with Maxtest AI-driven testing platform. Explore guides, API references, and integration documentation.",
+    "Connect Claude, Cursor or any MCP client to Maxtest: quickstart, tools reference, scopes, approvals and audit.",
   path: "/documentation",
 });
 
+const h2 = "font-headline text-2xl font-extrabold tracking-tight text-paper";
+
 export default function DocumentationPage() {
+  const connect = buildConnectCommand(process.env.NEXT_PUBLIC_MCP_URL);
+  if (!connect.configured) {
+    console.warn("[docs] NEXT_PUBLIC_MCP_URL is not set; the quickstart command shows a placeholder host.");
+  }
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: "Home", url: "/" },
     { name: "Documentation", url: "/documentation" },
   ]);
 
   return (
-    <div className="flex flex-col min-h-screen bg-background-dark">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
-      <section className="relative py-20 px-4 sm:px-6">
-        <div className="max-w-7xl mx-auto">
-          {/* Hero */}
-          <AnimatedSection className="text-center max-w-3xl mx-auto mb-16">
-            <h1 className="text-4xl md:text-5xl font-bold text-white tracking-tight mb-6">
-              Documentation
-            </h1>
-            <p className="text-lg text-slate-400 leading-relaxed">
-              Everything you need to get started with Maxtest and build powerful
-              AI-driven tests.
+    <div className="min-h-screen bg-ink">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <PageHeader eyebrow={DOCS.eyebrow} title={DOCS.title} lede={DOCS.lede} />
+
+      <div className="mx-auto grid max-w-6xl items-start gap-8 px-4 pb-20 sm:px-6 lg:grid-cols-[11rem_minmax(0,1fr)]">
+        <SectionRail items={DOCS_SECTIONS} ariaLabel="On this page" />
+
+        <div className="space-y-14">
+          <section id="quickstart" className="scroll-mt-24">
+            <h2 className={h2}>Quickstart</h2>
+            <ol className="mt-4 list-decimal space-y-1 pl-5 text-paper/75">
+              {DOCS.quickstart.steps.map((step) => (
+                <li key={step}>{step}</li>
+              ))}
+            </ol>
+            <div className="mt-4 max-w-3xl">
+              <CopyCommand command={connect.command} />
+            </div>
+            <p className="mt-4 max-w-2xl text-sm text-paper/60">{DOCS.quickstart.oauth}</p>
+          </section>
+
+          <section id="tools" className="scroll-mt-24">
+            <h2 className={h2}>
+              Tools reference <span className="font-mono text-sm font-normal text-paper/45">{MCP_TOOLS.length} tools</span>
+            </h2>
+            <p className="mb-6 mt-3 max-w-2xl text-paper/70">{DOCS.toolsIntro}</p>
+            <ToolsReference />
+          </section>
+
+          <section id="scopes" className="scroll-mt-24">
+            <h2 className={h2}>Scopes</h2>
+            <p className="mt-3 max-w-2xl text-paper/70">
+              A token carries scopes. Every call is also checked against the user&apos;s project permissions.
             </p>
-          </AnimatedSection>
+            <ul className="mt-4">
+              {SCOPES.map((scope) => (
+                <li key={scope.name} className="grid gap-1 border-t border-hairline py-2 md:grid-cols-[14rem_1fr] md:gap-4">
+                  <code className="font-mono text-[13px] text-primary">{scope.name}</code>
+                  <span className="text-sm text-paper/65">{scope.description}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
 
-          {/* Quick Start */}
-          <AnimatedSection delay={0.1} className="mb-16">
-            <div className="bg-surface-dark border border-white/10 rounded-2xl p-8 md:p-12">
-              <h2 className="text-3xl font-bold text-white mb-6">
-                Quick Start
-              </h2>
-              <div className="space-y-6">
-                <div className="flex gap-4">
-                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">
-                    1
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-bold text-white mb-2">
-                      Sign Up
-                    </h3>
-                    <p className="text-slate-400">
-                      Create your free account and access the dashboard.
-                    </p>
-                  </div>
-                </div>
-                <div className="flex gap-4">
-                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">
-                    2
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-bold text-white mb-2">
-                      Create a Project
-                    </h3>
-                    <p className="text-slate-400">
-                      Set up your first testing project with just a few clicks.
-                    </p>
-                  </div>
-                </div>
-                <div className="flex gap-4">
-                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">
-                    3
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-bold text-white mb-2">
-                      Generate Tests
-                    </h3>
-                    <p className="text-slate-400">
-                      Use AI to generate test cases from your requirements or
-                      documentation.
-                    </p>
-                  </div>
-                </div>
-                <div className="flex gap-4">
-                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">
-                    4
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-bold text-white mb-2">
-                      Run & Monitor
-                    </h3>
-                    <p className="text-slate-400">
-                      Execute tests and monitor results in real-time with
-                      detailed analytics.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </AnimatedSection>
+          <section id="approvals" className="scroll-mt-24">
+            <h2 className={h2}>Approvals and audit</h2>
+            <ul className="mt-4 max-w-2xl space-y-2 text-paper/75">
+              {DOCS.approvals.map((line) => (
+                <li key={line} className="flex gap-2">
+                  <span aria-hidden="true" className="text-primary">
+                    ▸
+                  </span>
+                  {line}
+                </li>
+              ))}
+            </ul>
+          </section>
 
-          {/* Documentation Sections */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-            {docSections.map((section, index) => (
-              <AnimatedSection key={index} delay={0.1 + index * 0.05}>
-                <div className="h-full bg-card-dark border border-white/5 rounded-xl p-6 hover:border-primary/20 transition-colors">
-                  <div className="mb-4 text-primary text-3xl">{section.icon}</div>
-                  <h3 className="text-xl font-bold text-white mb-3">
-                    {section.title}
-                  </h3>
-                  <p className="text-slate-400 text-sm mb-4">
-                    {section.description}
-                  </p>
+          <section id="guides" className="scroll-mt-24">
+            <h2 className={h2}>More guides</h2>
+            <ul className="mt-4 max-w-md">
+              {GUIDES_COMING.map((guide) => (
+                <li key={guide.title} className="flex items-baseline justify-between gap-4 border-t border-hairline py-2 text-paper/75">
+                  {guide.title}
+                  <Eyebrow className="text-paper/45">Coming soon</Eyebrow>
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          <section id="help" className="scroll-mt-24">
+            <h2 className={h2}>Get help</h2>
+            <ul className="mt-4 space-y-2">
+              {HELP_LINKS.map((link) => (
+                <li key={link.href}>
                   <a
-                    href={section.link}
-                    className="text-primary text-sm font-medium hover:underline inline-flex items-center gap-1"
+                    href={link.href}
+                    {...(link.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                    className="inline-flex items-center gap-2 font-bold text-primary underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
                   >
-                    Learn more
-                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24">
-                      <path
-                        d="M9 5l7 7-7 7"
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                      />
-                    </svg>
+                    <Icon name={link.icon} />
+                    {link.label}
                   </a>
-                </div>
-              </AnimatedSection>
-            ))}
-          </div>
-
-          {/* CTA */}
-          <AnimatedSection className="text-center">
-            <div className="bg-gradient-to-br from-primary/10 to-purple/10 border border-primary/20 rounded-2xl p-12">
-              <h2 className="text-3xl font-bold text-white mb-4">
-                Need Help?
-              </h2>
-              <p className="text-slate-400 mb-8">
-                Join our community or contact support for assistance.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <CTAButton
-                  href="https://discord.gg/hHqVWYgp"
-                  variant="primary"
-                  size="lg"
-                  external
-                >
-                  Join Discord
-                </CTAButton>
-                <CTAButton
-                  href="mailto:support@maxtest.id"
-                  variant="secondary"
-                  size="lg"
-                  external
-                >
-                  Contact Support
-                </CTAButton>
-              </div>
-            </div>
-          </AnimatedSection>
+                </li>
+              ))}
+            </ul>
+          </section>
         </div>
-      </section>
+      </div>
     </div>
   );
 }
-
-const docSections = [
-  {
-    icon: "📚",
-    title: "Core Concepts",
-    description:
-      "Understand the fundamental concepts of AI-driven testing and how Maxtest approaches quality assurance.",
-    link: "#",
-  },
-  {
-    icon: "🚀",
-    title: "Getting Started",
-    description:
-      "Step-by-step guide to set up your first project and generate your first test cases.",
-    link: "#",
-  },
-  {
-    icon: "🤖",
-    title: "AI Test Generation",
-    description:
-      "Learn how to use AI to automatically generate comprehensive test cases from requirements.",
-    link: "#",
-  },
-  {
-    icon: "⚙️",
-    title: "API Reference",
-    description:
-      "Complete API documentation for integrating Maxtest into your workflow programmatically.",
-    link: "#",
-  },
-  {
-    icon: "🔗",
-    title: "Integrations",
-    description:
-      "Connect Maxtest with your CI/CD pipeline, Jira, GitHub, and other tools.",
-    link: "#",
-  },
-  {
-    icon: "📊",
-    title: "Analytics & Reporting",
-    description:
-      "Understand test analytics, coverage metrics, and generate comprehensive reports.",
-    link: "#",
-  },
-];

@@ -1,5 +1,5 @@
 import Character from "@/components/ui/Character";
-import Tag from "@/components/ui/Tag";
+import Eyebrow from "@/components/ui/Eyebrow";
 import { CONTROL } from "@/lib/home-content";
 
 export default function ControlSection() {
@@ -9,7 +9,7 @@ export default function ControlSection() {
         <div className="flex items-end gap-4 lg:col-span-5">
           <Character of={{ kind: "cast", role: "guard" }} variant="noexhaust" height={110} decorative />
           <div>
-            <Tag>{CONTROL.tag}</Tag>
+            <Eyebrow>{CONTROL.tag}</Eyebrow>
             <h2 className="mt-3 font-headline text-3xl font-extrabold tracking-tight text-paper">{CONTROL.title}</h2>
           </div>
         </div>
