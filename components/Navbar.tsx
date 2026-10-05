@@ -2,152 +2,90 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import Button from "@/components/ui/Button";
+import Character from "@/components/ui/Character";
+import { loginUrl, signupUrl } from "@/lib/links";
 import { cn } from "@/lib/utils";
 
+const LINKS = [
+  { href: "/features", label: "Product" },
+  { href: "/documentation", label: "Docs" },
+  { href: "/pricing", label: "Pricing" },
+  { href: "/blog", label: "Blog" },
+] as const;
+
 export default function Navbar() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [open, setOpen] = useState(false);
+  const signup = signupUrl();
+  const login = loginUrl();
+  const isExternal = (url: string) => url.startsWith("http");
 
   return (
-    <nav className="relative z-50 w-full border-b border-white/10 glass-panel">
-      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-        {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 text-white">
-          <img
-            src="/favicon-img-w.png"
-            alt="Maxtest Logo"
-            width={32}
-            height={32}
-            className="w-8 h-8"
-          />
-          <h2 className="text-white text-lg font-bold tracking-tight">
-            Maxtest
-          </h2>
+    <nav className="relative z-50 w-full border-b border-hairline bg-ink">
+      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
+        <Link href="/" className="flex items-center gap-2 text-paper focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary">
+          <Character of={{ kind: "max", pose: "idle" }} variant="noexhaust" height={32} decorative />
+          <span className="font-headline text-xl font-extrabold tracking-tight">maxtest</span>
         </Link>
 
-        {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center gap-8">
-          <div className="flex items-center gap-6">
-            <Link
-              className="text-gray-400 hover:text-white text-sm font-medium transition-colors"
-              href="/features"
-            >
-              Features
+        <div className="hidden items-center gap-7 md:flex">
+          {LINKS.map((link) => (
+            <Link key={link.href} href={link.href} className="text-sm font-medium text-paper/65 transition-colors hover:text-paper">
+              {link.label}
             </Link>
-            <Link
-              className="text-gray-400 hover:text-white text-sm font-medium transition-colors"
-              href="/documentation"
-            >
-              Docs
-            </Link>
-            <Link
-              className="text-gray-400 hover:text-white text-sm font-medium transition-colors"
-              href="/pricing"
-            >
-              Pricing
-            </Link>
-            <Link
-              className="text-gray-400 hover:text-white text-sm font-medium transition-colors"
-              href="/blog"
-            >
-              Blog
-            </Link>
-          </div>
-          <div className="flex gap-3">
-            <a
-              href={`${process.env.NEXT_PUBLIC_APP_URL}/auth?action=login` || "#"}
-              className="px-4 h-9 flex items-center justify-center text-sm font-bold text-white transition hover:text-primary"
-            >
-              Sign In
-            </a>
-            <a
-              href={`${process.env.NEXT_PUBLIC_APP_URL}/auth?action=signup` || "#"}
-              className="flex items-center justify-center h-9 px-4 bg-primary/10 hover:bg-primary/20 border border-primary/50 text-primary text-sm font-bold rounded transition-all shadow-[0_0_5px_rgba(0,191,255,0.4)] hover:shadow-[0_0_10px_rgba(0,191,255,0.5),0_0_20px_rgba(0,191,255,0.3)]"
-            >
-              Get Started
-            </a>
-          </div>
+          ))}
+          <a href={login} className="text-sm font-bold text-paper hover:text-primary">
+            Sign in
+          </a>
+          <Button href={signup} external={isExternal(signup)} className="h-9">
+            Start free
+          </Button>
         </div>
 
-        {/* Mobile Menu Button */}
         <button
-          className="md:hidden text-white p-2"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          type="button"
+          className="p-2 text-paper md:hidden"
+          onClick={() => setOpen(!open)}
           aria-label="Toggle menu"
+          aria-expanded={open}
+          aria-controls="mobile-menu"
         >
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            {mobileMenuOpen ? (
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M6 18L18 6M6 6l12 12"
-              />
+          <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            {open ? (
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             ) : (
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 6h16M4 12h16M4 18h16"
-              />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
             )}
           </svg>
         </button>
       </div>
 
-      {/* Mobile Menu */}
       <div
+        id="mobile-menu"
+        inert={!open}
         className={cn(
-          "md:hidden absolute top-full left-0 right-0 glass-panel border-t border-white/10 transition-all duration-300 overflow-hidden",
-          mobileMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+          "absolute left-0 right-0 top-full overflow-hidden border-b border-hairline bg-ink transition-all duration-200 md:hidden",
+          open ? "max-h-96 opacity-100" : "max-h-0 border-b-0 opacity-0",
         )}
       >
-        <div className="px-6 py-4 space-y-4">
-          <Link
-            className="block text-gray-400 hover:text-white text-sm font-medium transition-colors py-2"
-            href="/features"
-            onClick={() => setMobileMenuOpen(false)}
-          >
-            Features
-          </Link>
-          <Link
-            className="block text-gray-400 hover:text-white text-sm font-medium transition-colors py-2"
-            href="/documentation"
-            onClick={() => setMobileMenuOpen(false)}
-          >
-            Docs
-          </Link>
-          <Link
-            className="block text-gray-400 hover:text-white text-sm font-medium transition-colors py-2"
-            href="/pricing"
-            onClick={() => setMobileMenuOpen(false)}
-          >
-            Pricing
-          </Link>
-          <Link
-            className="block text-gray-400 hover:text-white text-sm font-medium transition-colors py-2"
-            href="/blog"
-            onClick={() => setMobileMenuOpen(false)}
-          >
-            Blog
-          </Link>
-          <div className="pt-4 space-y-3 border-t border-white/10">
-            <a
-              href={`${process.env.NEXT_PUBLIC_APP_URL}/auth?action=login`}
-              className="block w-full px-4 h-10 flex items-center justify-center text-sm font-bold text-white border border-white/20 rounded transition-all hover:border-white/50 hover:bg-white/5"
+        <div className="space-y-1 px-4 py-4">
+          {LINKS.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              onClick={() => setOpen(false)}
+              className="block py-2 text-sm font-medium text-paper/70 hover:text-paper"
             >
-              Sign In
+              {link.label}
+            </Link>
+          ))}
+          <div className="flex gap-3 pt-3">
+            <a href={login} className="flex h-11 flex-1 items-center justify-center rounded-lg border-2 border-hairline text-sm font-bold text-paper">
+              Sign in
             </a>
-            <a
-              href={`${process.env.NEXT_PUBLIC_APP_URL}/auth?action=signup`}
-              className="block w-full px-4 h-10 flex items-center justify-center bg-primary/10 hover:bg-primary/20 border border-primary/50 text-primary text-sm font-bold rounded transition-all shadow-[0_0_5px_rgba(0,191,255,0.4)]"
-            >
-              Get Started
-            </a>
+            <Button href={signup} external={isExternal(signup)} className="flex-1">
+              Start free
+            </Button>
           </div>
         </div>
       </div>
