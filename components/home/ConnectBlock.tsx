@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Tag from "@/components/ui/Tag";
+import Eyebrow from "@/components/ui/Eyebrow";
 import { copyText, type CopyResult } from "@/lib/clipboard";
 import { CONNECT } from "@/lib/home-content";
 
@@ -41,7 +41,7 @@ export default function ConnectBlock({ command, endpoint }: Props) {
     <section className="mx-auto max-w-6xl border-t border-hairline px-4 py-14 sm:px-6">
       <div className="grid gap-8 lg:grid-cols-12">
         <div className="lg:col-span-5">
-          <Tag>{CONNECT.tag}</Tag>
+          <Eyebrow>{CONNECT.tag}</Eyebrow>
           <h2 className="mt-3 font-headline text-3xl font-extrabold tracking-tight text-paper">{CONNECT.title}</h2>
           <p className="mt-3 text-paper/70">{CONNECT.body}</p>
           <p className="mt-3 text-sm text-paper/55">
