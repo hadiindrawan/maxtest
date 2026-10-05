@@ -13,6 +13,8 @@ const COMPLIANT_FILES: string[] = [
   "components/ui/PageHeader.tsx",
   "components/ui/Section.tsx",
   "components/ui/SectionRail.tsx",
+  "app/features/page.tsx",
+  "components/product/Chapter.tsx",
 ];
 
 test("the rules catch each kind of violation", () => {
