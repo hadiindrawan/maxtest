@@ -18,6 +18,9 @@ const COMPLIANT_FILES: string[] = [
   "app/pricing/page.tsx",
   "components/pricing/PricingLedger.tsx",
   "components/pricing/Faq.tsx",
+  "app/documentation/page.tsx",
+  "components/docs/ToolsReference.tsx",
+  "components/ui/CopyCommand.tsx",
 ];
 
 test("the rules catch each kind of violation", () => {
