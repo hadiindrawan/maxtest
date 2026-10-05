@@ -24,6 +24,7 @@ const content = [
   "[&>h3]:mb-4 [&>h3]:mt-10 [&>h3]:font-headline [&>h3]:text-2xl [&>h3]:font-extrabold [&>h3]:text-paper",
   "[&>p]:mb-6 [&>p]:font-serif [&>p]:text-lg [&>p]:leading-[1.75] [&>p]:text-paper/85",
   "[&>ul]:my-8 [&>ul]:space-y-3",
+  "[&>ol]:my-8 [&>ol]:list-decimal [&>ol]:space-y-3 [&>ol]:pl-6 [&>ol>li]:font-serif [&>ol>li]:text-lg [&>ol>li]:leading-[1.75] [&>ol>li]:text-paper/85 [&>ol>li]:marker:font-mono [&>ol>li]:marker:text-primary",
   "[&>ul>li]:relative [&>ul>li]:pl-6 [&>ul>li]:font-serif [&>ul>li]:text-lg [&>ul>li]:leading-[1.75] [&>ul>li]:text-paper/85",
   "[&>ul>li]:before:absolute [&>ul>li]:before:left-0 [&>ul>li]:before:text-primary [&>ul>li]:before:content-['▸']",
   "[&>ul>li>strong]:font-bold [&>ul>li>strong]:text-paper",

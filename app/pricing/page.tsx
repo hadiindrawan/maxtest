@@ -3,7 +3,7 @@ import PricingLedger from "@/components/pricing/PricingLedger";
 import PageHeader from "@/components/ui/PageHeader";
 import Section from "@/components/ui/Section";
 import { signupUrl } from "@/lib/links";
-import { FAQ, PRICING } from "@/lib/pricing";
+import { FAQ, PRICING, publishableFaq } from "@/lib/pricing";
 import { generateFAQSchema, generateMetadata as generateSEOMetadata } from "@/lib/seo";
 
 export const metadata = generateSEOMetadata({
@@ -13,7 +13,7 @@ export const metadata = generateSEOMetadata({
 });
 
 export default function PricingPage() {
-  const faqSchema = generateFAQSchema(FAQ);
+  const faqSchema = generateFAQSchema(publishableFaq(FAQ));
   return (
     <div className="min-h-screen bg-ink">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />

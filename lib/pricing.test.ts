@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { BANNED_PHRASES } from "./home-content.ts";
-import { FAQ, isPlaceholder, PLANS, ROWS } from "./pricing.ts";
+import { FAQ, isPlaceholder, PLANS, publishableFaq, ROWS } from "./pricing.ts";
 
 test("there are three plans and exactly one is recommended", () => {
   assert.deepEqual(PLANS.map((p) => p.id), ["free", "pro", "team"]);
@@ -73,4 +73,11 @@ test("the FAQ describes the two meters and never repeats the old contradictory c
 test("FAQ answers that still need a number are bracketed so they can be found", () => {
   const bracketed = FAQ.filter((f) => /\[[^\]]+\]/.test(f.answer));
   assert.ok(bracketed.length >= 2);
+});
+
+test("structured data only includes FAQ answers with no unfilled placeholder", () => {
+  const items = publishableFaq(FAQ);
+  assert.ok(items.length >= 3 && items.length < FAQ.length);
+  for (const item of items) assert.ok(!/\[[^\]]+\]/.test(`${item.question} ${item.answer}`), item.question);
+  assert.ok(items.some((i) => i.question === "What counts as a runner minute?"));
 });

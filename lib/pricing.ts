@@ -119,3 +119,8 @@ export const FAQ = [
     answer: "Yes. Yearly billing saves 20% on paid plans.",
   },
 ];
+
+/** FAQ items safe to publish in structured data: anything still holding a [placeholder] stays out of search results. */
+export function publishableFaq<T extends { question: string; answer: string }>(items: readonly T[]): T[] {
+  return items.filter((item) => !/\[[^\]]+\]/.test(`${item.question} ${item.answer}`));
+}

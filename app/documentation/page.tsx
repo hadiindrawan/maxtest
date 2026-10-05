@@ -20,6 +20,9 @@ const h2 = "font-headline text-2xl font-extrabold tracking-tight text-paper";
 
 export default function DocumentationPage() {
   const connect = buildConnectCommand(process.env.NEXT_PUBLIC_MCP_URL);
+  if (!connect.configured) {
+    console.warn("[docs] NEXT_PUBLIC_MCP_URL is not set; the quickstart command shows a placeholder host.");
+  }
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: "Home", url: "/" },
     { name: "Documentation", url: "/documentation" },
