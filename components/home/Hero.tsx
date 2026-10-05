@@ -29,10 +29,10 @@ export default function Hero({ signupHref }: { signupHref: string }) {
           </div>
         </div>
 
-        <div className="flex min-w-0 items-end gap-4 lg:col-span-6">
+        <div className="flex min-w-0 flex-col items-start gap-4 sm:flex-row sm:items-end lg:col-span-6">
           <Character of={{ kind: "max", pose: "main" }} variant="exhaust" height={220} priority className="shrink-0" />
-          <div className="min-w-0 flex-1 space-y-3">
-            <Bubble>
+          <div className="w-full min-w-0 space-y-3 sm:flex-1">
+            <Bubble className="overflow-hidden">
               <p>
                 <span className="text-paper/50">you ›</span>{" "}
                 <span

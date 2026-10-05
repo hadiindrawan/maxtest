@@ -3,6 +3,7 @@ import {
   generateBreadcrumbSchema,
 } from "@/lib/seo";
 import AnimatedSection from "@/components/AnimatedSection";
+import { signupUrl } from "@/lib/links";
 import FeatureCard from "@/components/FeatureCard";
 import CTAButton from "@/components/CTAButton";
 
@@ -136,7 +137,7 @@ export default function FeaturesPage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <CTAButton
-                href={`${process.env.NEXT_PUBLIC_APP_URL}/auth?action=signup` || "/pricing"}
+                href={signupUrl()}
                 variant="primary"
                 size="lg"
               >
