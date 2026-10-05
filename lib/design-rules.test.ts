@@ -21,6 +21,8 @@ const COMPLIANT_FILES: string[] = [
   "app/documentation/page.tsx",
   "components/docs/ToolsReference.tsx",
   "components/ui/CopyCommand.tsx",
+  "app/blog/page.tsx",
+  "app/blog/[slug]/page.tsx",
 ];
 
 test("the rules catch each kind of violation", () => {

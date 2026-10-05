@@ -1,11 +1,8 @@
-import { ReactNode } from "react";
-
 export interface BlogPost {
   slug: string;
   title: string;
   excerpt: string;
   date: string;
-  readingTime: string;
   tags: string[];
   content: string; // HTML string for simplicity
 }
@@ -16,14 +13,13 @@ export const blogPosts: BlogPost[] = [
     title: "Introducing MaxHeal: LLM-Powered Auto-Heal for Playwright",
     excerpt: "Discover MaxHeal, the zero-friction Python Playwright wrapper that uses LLMs to automatically heal broken selectors and squash flaky tests at runtime.",
     date: "2026-03-09",
-    readingTime: "5 min read",
     tags: ["Playwright", "Auto-Heal", "Python", "Testing", "MaxHeal"],
     content: `
       <h2>The Fragility of Automation Testing</h2>
       
       <p>UI automation has a dirty secret: it is incredibly fragile. You spend hours meticulously crafting your Playwright tests, selecting the perfect CSS or XPath locators, only for a minor UI tweak—a changed button class or a restructured DOM—to break everything. It's frustrating, time-consuming, and worst of all, it erodes trust in your test suite.</p>
       
-      <img src="/max_heal_blog_cover.png" alt="MaxHeal AI assistant repairing broken UI" class="w-full rounded-xl my-10 border border-white/10" />
+      <img src="/max_heal_blog_cover.png" alt="MaxHeal AI assistant repairing broken UI" class="my-10 w-full rounded-lg border-2 border-paper/80" />
 
       <p>Today, we're thrilled to introduce <strong><a href="https://pypi.org/project/max-heal/" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline">MaxHeal</a></strong>, a powerful new Playwright wrapper for Python designed to eliminate flaky tests through LLM-powered auto-healing.</p>
 
@@ -33,10 +29,10 @@ export const blogPosts: BlogPost[] = [
       
       <p>Key features include:</p>
       <ul>
-        <li>🔧 <strong>Auto-heal:</strong> Automatically repairs broken selectors at runtime using an LLM via OpenRouter.</li>
-        <li>🔁 <strong>Flaky guard:</strong> A smart retry decorator designed for unstable asynchronous tests.</li>
-        <li>🪶 <strong>Zero friction:</strong> No code changes required to your native Playwright assertions—just wrap the <code>page</code> fixture globally.</li>
-        <li>⚡ <strong>Selector cache:</strong> Healed selectors are cached and reused within the session, preventing duplicate LLM calls and keeping tests fast.</li>
+        <li><strong>Auto-heal:</strong> Automatically repairs broken selectors at runtime using an LLM via OpenRouter.</li>
+        <li><strong>Flaky guard:</strong> A smart retry decorator designed for unstable asynchronous tests.</li>
+        <li><strong>Zero friction:</strong> No code changes required to your native Playwright assertions—just wrap the <code>page</code> fixture globally.</li>
+        <li><strong>Selector cache:</strong> Healed selectors are cached and reused within the session, preventing duplicate LLM calls and keeping tests fast.</li>
       </ul>
 
       <h2>Zero-Setup Integration</h2>
@@ -104,7 +100,6 @@ def test_login(page):
     excerpt:
       "Flaky tests kill developer velocity. Learn how Retrieval-Augmented Generation (RAG) creates self-healing tests that adapt to UI changes—and how Maxtest implements this at scale.",
     date: "2026-02-01",
-    readingTime: "8 min read",
     tags: ["Flaky Tests", "RAG", "Engineering", "SDET"],
     content: `
       <h2>The Flakiness Epidemic</h2>
